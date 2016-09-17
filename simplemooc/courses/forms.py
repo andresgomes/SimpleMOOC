@@ -11,7 +11,7 @@ class ContactCourse(forms.Form):
 	message = forms.CharField(label='Mensagem/Duvida',
 		widget=forms.Textarea)
 
-	def send_mail(self):
+	def send_mail(self,course):
 		subject = '[%s] Contato' % course
 		context = {
 			'name': self.cleaned.data['name'],
@@ -19,6 +19,6 @@ class ContactCourse(forms.Form):
 			'message': self.cleaned_data['message']
 		}
 		template_name = "courses/contact_email.html"
-		send_mail_template(subject, template_name, context,
-			[settings.CONTACT_MAIL]
+		send_mail_template(
+			subject, template_name, context,			[settings.CONTACT_MAIL]
 		)
